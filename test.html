@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<link rel="stylesheet" type="text/css" href="ext/css/main.css" />
+<script type="text/javascript" src="ext/jsc/progress_bar_lib.js"></script>
+<script type="text/javascript" src="ext/css/main.js"></script>
+
+-->
+<title></title>
+ 
+  <style type="text/css">
+   
+    html, body{
+ margin: 0px;
+ padding: 0px;
+ font-family: tahoma, geneva, verdana, sans-serif;
+}
+body {
+ background:   #fff;
+}
+wrap{
+ margin:100px;
+}
+#buttons{
+ margin:10px 0px 0px 0px;
+ }
+.bar {
+ width: 300px;
+ height: 24px;
+ border: solid 1px #222;
+    margin: 5px;
+} 
+
+ 
+
+
+   
+  </style>
+ 
+</head>
+
+
+<body>
+
+  <div id = "wrap"></div>
+
+<p></p>
+<section class="container">
+   
+    <div class="dropdown dropdown-dark">
+      <select name="two" class="dropdown-select" id = "options">
+        <option value="">Select…</option>
+        <option value="1"><a href="file://C:/xampp/htdocs/progress_bar/test.html ">.Option #1</option>
+        <option value="2"><a href=" ">.Option #2</option>
+        <option value="3"><a href=" ">.Option #3</option>
+      </select>
+ 
+
+
+ <input type="button" id="set_25" value="25%" />
+ <input type="button" id="set_50" value="50%" />
+ <input type="button" id="set_75" value="75%" />
+ <input type="button" id="from_0_to_100" value="0% - 100%" />
+ </section
+   </div>
+ 
+      <script type="text/javascript">
+        function progress_bar(container){
+ var bar = document.createElement('div');
+ var text = document.createElement('div');
+ 
+ bar.style.width = '0px';
+ bar.style.height = '100%';
+ bar.style.background = '#eef';
+ 
+ container.appendChild(bar);
+ 
+ text.style.marginTop = '-26px';
+ text.style.textAlign  = 'center';
+ text.style.color   = '#111';
+ text.style.textSize  = '15px';
+ text.appendChild(document.createTextNode('0%'));
+ 
+ container.appendChild(text);
+ 
+ this.set_percentage = function(percentage){
+  bar.style.width = percentage + "%";
+  
+  text.removeChild(text.firstChild);
+  text.appendChild(document.createTextNode(percentage + '%'));
+ }
+}
+
+function getobj(id) {
+  var obj = document.getElementById(id);
+ 
+  return obj;
+}
+
+window.onload = function() {
+ 
+  var options = getobj("options").options;
+ 
+  var length = options.length;
+ 
+  var wrap = getobj("wrap");
+ 
+  for (var i=0; i<length; i++) {
+    var opt = options[i].value.replace(/^\s+|\s+$/g, "");
+    if (!opt) continue;
+   
+    var div = document.createElement("div");
+    div.className = "bar";
+   
+      div.id = "progress_bar_wrap_"+opt;
+    wrap.appendChild(div);
+  }
+ 
+ document.getElementById('set_25').onclick=function(){
+    fillbar(25);
+    }
+document.getElementById('set_50').onclick=function(){
+    fillbar(50);
+}
+document.getElementById('set_75').onclick=function(){
+    fillbar(75);
+}
+document.getElementById('from_0_to_100').onclick=function(){
+    fillbar(100);
+}
+
+function fillbar(percent, bar) {
+  var i = 0;
+  var option = getobj("options").value.replace(/^\s+|\s+$/g, "");
+  var div = getobj("progress_bar_wrap_"+option);
+  div.innerHTML = "";
+  var bar = new progress_bar(div);
+ if (percent <100) {
+      bar.set_percentage(percent);
+    }
+  else {
+ var interval = window.setInterval(function(){
+  if (i >= percent){
+   window.clearInterval(interval);
+     }
+  bar.set_percentage(i++);
+   }, 50);
+ }
+}
+}
+
+</script>
+              
+     
+ </body>
+</html>
